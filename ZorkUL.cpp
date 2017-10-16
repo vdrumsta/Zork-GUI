@@ -54,7 +54,7 @@ void ZorkUL::createRooms()  {
 }
 
 string ZorkUL::shortDescription() {
-    return currentRoom->shortDescription();
+    return currentRoom->longDescription();
 }
 
 void ZorkUL::processButton(Command command) {

@@ -21,6 +21,12 @@ private slots:
 
     void on_teleportButton_clicked();
 
+    void on_westButton_clicked();
+
+    void on_southButton_clicked();
+
+    void on_eastButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     void updateRoomLabel();

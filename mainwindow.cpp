@@ -28,12 +28,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_northButton_clicked()
-{
-    Command command("go", "north");
-    temp.processButton(command);
-    updateRoomLabel();
-}
+
 
 void MainWindow::on_teleportButton_clicked()
 {
@@ -43,7 +38,33 @@ void MainWindow::on_teleportButton_clicked()
 }
 
 void MainWindow::updateRoomLabel() {
-    string roomDescription = "room = " + temp.shortDescription();
+    string roomDescription = temp.shortDescription();
     QString qstr = QString::fromStdString(roomDescription);
     ui->roomDescription->setText(qstr);
+}
+void MainWindow::on_northButton_clicked()
+{
+    Command command("go", "north");
+    temp.processButton(command);
+    updateRoomLabel();
+}
+void MainWindow::on_westButton_clicked()
+{
+    Command command("go", "west");
+    temp.processButton(command);
+    updateRoomLabel();
+}
+
+void MainWindow::on_southButton_clicked()
+{
+    Command command("go", "south");
+    temp.processButton(command);
+    updateRoomLabel();
+}
+
+void MainWindow::on_eastButton_clicked()
+{
+    Command command("go", "east");
+    temp.processButton(command);
+    updateRoomLabel();
 }

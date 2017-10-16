@@ -233,8 +233,10 @@ debug/moc_mainwindow.cpp: C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QMainWi
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QGraphicsPixmapItem \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qgraphicsitem.h \
 		mainwindow.h
-	C:\Qt\Qt5.6.2\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.6.2/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/vdrum/OneDrive/workarea/programming/2017/Qt/ZorkLab3 -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtANGLE -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtCore mainwindow.h -o debug\moc_mainwindow.cpp
+	C:\Qt\Qt5.6.2\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.6.2/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/Jhonatas/Documents/GitHub/Zork-GUI -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtANGLE -IC:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtCore mainwindow.h -o debug\moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -364,13 +366,21 @@ debug/main.o: main.cpp mainwindow.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QGraphicsPixmapItem \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtCore/qeventloop.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qinputmethod.h
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		ZorkUL.h \
+		Command.h \
+		Parser.h \
+		CommandWords.h \
+		Room.h \
+		item.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o main.cpp
 
 debug/mainwindow.o: mainwindow.cpp mainwindow.h \
@@ -481,6 +491,8 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QGraphicsPixmapItem \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qgraphicsitem.h \
 		ui_mainwindow.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtCore/QVariant \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QAction \
@@ -495,11 +507,18 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qinputmethod.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QGraphicsView \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qpainter.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qtextoption.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qscrollarea.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QHeaderView \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qframe.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtCore/qitemselectionmodel.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
@@ -512,14 +531,25 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qstyle.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qlabel.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QMenuBar \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qmenubar.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qmenu.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QStatusBar \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qstatusbar.h \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QToolBar \
 		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/qtoolbar.h \
-		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QWidget
+		C:/Qt/Qt5.6.2/5.6/mingw49_32/include/QtWidgets/QWidget \
+		ZorkUL.h \
+		Command.h \
+		Parser.h \
+		CommandWords.h \
+		Room.h \
+		item.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o mainwindow.cpp
 
 debug/Character.o: Character.cpp 
