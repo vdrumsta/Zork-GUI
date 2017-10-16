@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>611</width>
+    <height>596</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="northButton">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>20</y>
+      <x>60</x>
+      <y>140</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="westButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>60</y>
+      <x>10</x>
+      <y>180</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -43,8 +43,8 @@
    <widget class="QPushButton" name="eastButton">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>60</y>
+      <x>120</x>
+      <y>180</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -56,8 +56,8 @@
    <widget class="QPushButton" name="southButton">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>100</y>
+      <x>60</x>
+      <y>220</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -69,8 +69,8 @@
    <widget class="QLabel" name="roomDescription">
     <property name="geometry">
      <rect>
-      <x>26</x>
-      <y>210</y>
+      <x>30</x>
+      <y>500</y>
       <width>181</width>
       <height>20</height>
      </rect>
@@ -79,38 +79,22 @@
      <string>room</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="teleportButton">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>30</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Teleport</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>26</x>
-      <y>180</y>
-      <width>181</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Button Status</string>
-    </property>
-   </widget>
    <widget class="QGraphicsView" name="roomGraphicsView">
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>110</y>
-      <width>171</width>
+      <y>130</y>
+      <width>391</width>
+      <height>361</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>611</width>
       <height>131</height>
      </rect>
     </property>
@@ -121,7 +105,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>611</width>
      <height>21</height>
     </rect>
    </property>
