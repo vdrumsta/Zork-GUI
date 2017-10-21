@@ -1,5 +1,6 @@
 #include "Room.h"
 #include "Command.h"
+#include <QCoreApplication>
 
 
 Room::Room(string description) {
@@ -15,6 +16,18 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 		exits["south"] = south;
 	if (west != NULL)
 		exits["west"] = west;
+}
+
+QGraphicsScene* Room::getRoomImage() {
+    return roomScene;
+}
+
+void Room::loadImage() {
+    imagePath = "../ZorkGUIProject/images/" + description + ".png";
+    roomQImage = new QImage(QString::fromStdString(imagePath));
+    roomImage = new QGraphicsPixmapItem(QPixmap::fromImage(*roomQImage));
+    roomScene = new QGraphicsScene();
+    roomScene->addItem(roomImage);
 }
 
 string Room::shortDescription() {

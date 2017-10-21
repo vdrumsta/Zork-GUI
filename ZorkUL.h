@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <QCoreApplication>
 using namespace std;
 
 class ZorkUL {
@@ -26,6 +27,8 @@ private:
 
 public:
 	ZorkUL();
+    void loadRoomImages();
+    QGraphicsScene* getCurrentRoomImage();
     void play();
     void processButton(Command command);
     string shortDescription();

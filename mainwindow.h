@@ -27,8 +27,11 @@ private slots:
 
     void on_eastButton_clicked();
 
+
 private:
     Ui::MainWindow *ui;
+    void showEvent(QShowEvent *);
+    void displayCurrentRoomImage();
     void updateRoomLabel();
 };
 

@@ -53,6 +53,16 @@ void ZorkUL::createRooms()  {
         currentRoom = a;
 }
 
+QGraphicsScene* ZorkUL::getCurrentRoomImage() {
+    return currentRoom->getRoomImage();
+}
+
+void ZorkUL::loadRoomImages() {
+    for (unsigned int i = 0; i < rooms.size(); i++) {
+        rooms[i]->loadImage();
+    }
+}
+
 string ZorkUL::shortDescription() {
     return currentRoom->longDescription();
 }

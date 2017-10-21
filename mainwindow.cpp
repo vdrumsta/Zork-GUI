@@ -5,7 +5,7 @@
 using namespace std;
 #include "ZorkUL.h"
 
-ZorkUL temp;
+ZorkUL zorkUL;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,14 +14,27 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     updateRoomLabel();
 
-    QGraphicsScene* roomScene = new QGraphicsScene();
-    QString fileName = QString::fromStdString("C:\\Users\\vdrum\\OneDrive\\workarea\\programming\\2017\\Qt\\ZorkLab3\\images\\WildWest8bit.png");
-    QImage roomImage(fileName);
-    QGraphicsPixmapItem* roomImageItem = new QGraphicsPixmapItem(QPixmap::fromImage(roomImage));
-    roomScene->addItem(roomImageItem);
-    ui->roomGraphicsView->setScene(roomScene);
-    ui->roomGraphicsView->show();
+    // Load all images
+    zorkUL.loadRoomImages();
+
+    // Display starting room image
+
+
+    displayCurrentRoomImage();
 }
+
+void MainWindow::displayCurrentRoomImage() {
+    ui->roomGraphicsView->setScene(zorkUL.getCurrentRoomImage());
+    ui->roomGraphicsView->show();
+    ui->roomGraphicsView->fitInView(ui->roomGraphicsView->scene()->sceneRect(),Qt::IgnoreAspectRatio);
+}
+
+//*
+void MainWindow::showEvent(QShowEvent *) {
+    cout << "show event" << endl;
+    ui->roomGraphicsView->fitInView(ui->roomGraphicsView->scene()->sceneRect(),Qt::IgnoreAspectRatio);
+}
+//*/
 
 MainWindow::~MainWindow()
 {
@@ -33,38 +46,42 @@ MainWindow::~MainWindow()
 void MainWindow::on_teleportButton_clicked()
 {
     Command command("teleport", "");
-    temp.processButton(command);
+    zorkUL.processButton(command);
     updateRoomLabel();
 }
 
 void MainWindow::updateRoomLabel() {
-    string roomDescription = temp.shortDescription();
+    string roomDescription = zorkUL.shortDescription();
     QString qstr = QString::fromStdString(roomDescription);
     ui->roomDescription->setText(qstr);
 }
 void MainWindow::on_northButton_clicked()
 {
     Command command("go", "north");
-    temp.processButton(command);
+    zorkUL.processButton(command);
     updateRoomLabel();
+    displayCurrentRoomImage();
 }
 void MainWindow::on_westButton_clicked()
 {
     Command command("go", "west");
-    temp.processButton(command);
+    zorkUL.processButton(command);
     updateRoomLabel();
+    displayCurrentRoomImage();
 }
 
 void MainWindow::on_southButton_clicked()
 {
     Command command("go", "south");
-    temp.processButton(command);
+    zorkUL.processButton(command);
     updateRoomLabel();
+    displayCurrentRoomImage();
 }
 
 void MainWindow::on_eastButton_clicked()
 {
     Command command("go", "east");
-    temp.processButton(command);
+    zorkUL.processButton(command);
     updateRoomLabel();
+    displayCurrentRoomImage();
 }
