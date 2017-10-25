@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QGraphicsPixmapItem>
+#include <QKeyEvent>
 
 using namespace std;
 #include "ZorkUL.h"
@@ -13,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     updateRoomLabel();
-
+    setFocusPolicy(Qt::StrongFocus);
     // Load all images
     zorkUL.loadRoomImages();
 
@@ -55,6 +56,11 @@ void MainWindow::updateRoomLabel() {
     QString qstr = QString::fromStdString(roomDescription);
     ui->roomDescription->setText(qstr);
 }
+void MainWindow::updatePlaverInventLabel() {
+    string temp = zorkUL.getInventory();
+    QString qstr = QString::fromStdString(temp);
+    ui->playerInventory->setText(qstr);
+}
 void MainWindow::on_northButton_clicked()
 {
     Command command("go", "north");
@@ -84,4 +90,27 @@ void MainWindow::on_eastButton_clicked()
     zorkUL.processButton(command);
     updateRoomLabel();
     displayCurrentRoomImage();
+}
+
+void MainWindow::on_take_clicked()
+{
+   // Command command("take", "prisonKey");
+    //zorkUL.processButton(command);
+    zorkUL.takeItem();
+    updatePlaverInventLabel();
+    updateRoomLabel();
+    displayCurrentRoomImage();
+}
+/*bool MainWindow::eventFilter(QObject* obj, QEvent* event){
+
+    if (event->type()== QEvent::KeyPress) {
+        QKeyEvent* key = static_cast<QKeyEvent*>(event);
+
+        zorkUL.setKeyPressed(key);
+
+    }
+    return true;
+}*/
+void MainWindow::keyPressEvent(QKeyEvent* e){
+    zorkUL.setKeyPressed(e);
 }

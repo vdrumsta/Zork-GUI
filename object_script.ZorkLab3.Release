@@ -8,5 +8,7 @@ INPUT(
 ./release\Parser.o
 ./release\Room.o
 ./release\ZorkUL.o
+./release\keypressreceiver.o
 ./release\moc_mainwindow.o
+./release\moc_keypressreceiver.o
 );

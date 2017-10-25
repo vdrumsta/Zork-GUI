@@ -82,24 +82,33 @@ int Room::numberOfItems() {
     return itemsInRoom.size();
 }
 
-int Room::isItemInRoom(string inString)
+int Room::isItemInRoom()
 {
-    int sizeItems = (itemsInRoom.size());
+    //int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1) {
         return false;
         }
     else if (itemsInRoom.size() > 0) {
-       int x = (0);
+       /*int x = (0);
         for (int n = sizeItems; n > 0; n--) {
             // compare inString with short description
             int tempFlag = inString.compare( itemsInRoom[x].getShortDescription());
             if (tempFlag == 0) {
-                itemsInRoom.erase(itemsInRoom.begin()+x);
+                //itemsInRoom.erase(itemsInRoom.begin()+x);
                 return x;
             }
             x++;
-            }
+            }*/
+            return 0;
         }
     return -1;
+}
+Item Room::getItem(int x){
+    return itemsInRoom[x];
+
+}
+void Room::removeItem(int x){
+
+    itemsInRoom.erase(itemsInRoom.begin()+x);
 }
 

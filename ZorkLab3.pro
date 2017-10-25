@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     item.cpp \
     Parser.cpp \
     Room.cpp \
-    ZorkUL.cpp
+    ZorkUL.cpp \
+    keypressreceiver.cpp
 
 HEADERS  += mainwindow.h \
     Character.h \
@@ -30,7 +31,8 @@ HEADERS  += mainwindow.h \
     Parser.h \
     Room.h \
     ui_mainwindow.h \
-    ZorkUL.h
+    ZorkUL.h \
+    keypressreceiver.h
 
 FORMS    += mainwindow.ui
 

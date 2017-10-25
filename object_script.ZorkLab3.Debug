@@ -8,5 +8,7 @@ INPUT(
 ./debug\Parser.o
 ./debug\Room.o
 ./debug\ZorkUL.o
+./debug\keypressreceiver.o
 ./debug\moc_mainwindow.o
+./debug\moc_keypressreceiver.o
 );

@@ -69,9 +69,9 @@
    <widget class="QLabel" name="roomDescription">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>500</y>
-      <width>181</width>
+      <width>191</width>
       <height>51</height>
      </rect>
     </property>
@@ -97,6 +97,32 @@
       <width>611</width>
       <height>131</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="take">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>280</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>take Item</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="playerInventory">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>280</y>
+      <width>101</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>player inventory</string>
     </property>
    </widget>
   </widget>

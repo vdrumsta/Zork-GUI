@@ -36,6 +36,8 @@ public:
     QLabel *roomDescription;
     QGraphicsView *roomGraphicsView;
     QGraphicsView *graphicsView;
+    QPushButton *take;
+    QLabel *playerInventory;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -61,13 +63,19 @@ public:
         southButton->setGeometry(QRect(60, 220, 75, 23));
         roomDescription = new QLabel(centralWidget);
         roomDescription->setObjectName(QStringLiteral("roomDescription"));
-        roomDescription->setGeometry(QRect(30, 500, 181, 51));
+        roomDescription->setGeometry(QRect(20, 500, 191, 51));
         roomGraphicsView = new QGraphicsView(centralWidget);
         roomGraphicsView->setObjectName(QStringLiteral("roomGraphicsView"));
         roomGraphicsView->setGeometry(QRect(220, 130, 391, 361));
         graphicsView = new QGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->setGeometry(QRect(0, 0, 611, 131));
+        take = new QPushButton(centralWidget);
+        take->setObjectName(QStringLiteral("take"));
+        take->setGeometry(QRect(10, 280, 75, 23));
+        playerInventory = new QLabel(centralWidget);
+        playerInventory->setObjectName(QStringLiteral("playerInventory"));
+        playerInventory->setGeometry(QRect(100, 280, 101, 101));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -93,6 +101,8 @@ public:
         eastButton->setText(QApplication::translate("MainWindow", "East", 0));
         southButton->setText(QApplication::translate("MainWindow", "South", 0));
         roomDescription->setText(QApplication::translate("MainWindow", "room", 0));
+        take->setText(QApplication::translate("MainWindow", "take Item", 0));
+        playerInventory->setText(QApplication::translate("MainWindow", "player inventory", 0));
     } // retranslateUi
 
 };

@@ -1,3 +1,5 @@
+//#include <QKeyEvent>
+#include <QKeyEvent>
 #include <iostream>
 #include <vector>
 
@@ -6,19 +8,20 @@ using namespace std;
 
 ZorkUL::ZorkUL() {
 	createRooms();
-
+    createPlayer();
 }
 
 void ZorkUL::createRooms()  {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
-
+    //keyPressed = new Q
     a = new Room("a");
-        a->addItem(new Item("x", 1, 11));
-        a->addItem(new Item("y", 2, 22));
+      //  a->addItem(new Item("x", 1, 11));
+      //  a->addItem(new Item("y", 2, 22));
     b = new Room("b");
-        b->addItem(new Item("xx", 3, 33));
-        b->addItem(new Item("yy", 4, 44));
+        b->addItem(new Item("prisoner", 0, 1));
+        //b->addItem(new Item("tavernkey", 1,1));
     c = new Room("c");
+        c->addItem(new Item("sherif", 1, 0));
     d = new Room("d");
     e = new Room("e");
     f = new Room("f");
@@ -27,19 +30,19 @@ void ZorkUL::createRooms()  {
     i = new Room("i");
     j = new Room("j");
 
-    rooms.push_back(a);
-    rooms.push_back(b);
-    rooms.push_back(c);
-    rooms.push_back(d);
-    rooms.push_back(e);
-    rooms.push_back(f);
-    rooms.push_back(g);
-    rooms.push_back(h);
-    rooms.push_back(i);
-    rooms.push_back(j);
+    rooms.push_back(a);//0
+    rooms.push_back(b);//1
+    rooms.push_back(c);//2
+    rooms.push_back(d);//3
+    rooms.push_back(e);//4
+    rooms.push_back(f);//5
+    rooms.push_back(g);//6
+    rooms.push_back(h);//7
+    rooms.push_back(i);//8
+    rooms.push_back(j);//9
 
 //             (N, E, S, W)
-    a->setExits(f, b, d, c);
+    a->setExits(f, NULL, d, c);
     b->setExits(NULL, j, NULL, a);
     c->setExits(NULL, a, NULL, NULL);
     d->setExits(a, e, NULL, i);
@@ -51,6 +54,10 @@ void ZorkUL::createRooms()  {
     j->setExits(NULL, NULL, NULL, b);
 
         currentRoom = a;
+    Character *player  = new Character("player1");
+}
+void ZorkUL::createPlayer(){
+     player  = new Character("player1");
 }
 
 QGraphicsScene* ZorkUL::getCurrentRoomImage() {
@@ -133,7 +140,7 @@ bool ZorkUL::processCommand(Command command) {
         cout << "goes into teleport";
         teleportRandomRoom();
     }
-    else if (commandWord.compare("take") == 0)
+    /*else if (commandWord.compare("take") == 0)
     {
        	if (!command.hasSecondWord()) {
         cout << "incomplete input"<< endl;
@@ -149,9 +156,13 @@ bool ZorkUL::processCommand(Command command) {
             cout << "index number " << + location << endl;
             cout << endl;
             cout << currentRoom->longDescription() << endl;
+            Item temp = currentRoom->getItem(location);
+            currentRoom->removeItem(location);
+            player->addItem(temp);
+            player->longDescription();
 
         }
-    }
+    }*/
 
     else if (commandWord.compare("put") == 0)
     {
@@ -177,6 +188,68 @@ bool ZorkUL::processCommand(Command command) {
 	}
 	return false;
 }
+string ZorkUL::takeItem(){
+    string result = "";
+    //cout << "you're trying to take prisonKey" << endl;
+    int location = currentRoom->isItemInRoom();
+    if (location  < 0 )
+        cout << "item is not in room" << endl;
+    else{
+
+        cout << "item is in room" << endl;
+        cout << "index number " << + location << endl;
+        cout << endl;
+        cout << currentRoom->longDescription() << endl;
+        Item temp = currentRoom->getItem(location);
+        currentRoom->removeItem(location);
+        player->addItem(temp);
+        result = player->longDescription();
+        if(temp.getType() == 0){
+
+            if(temp.getShortDescription().compare("sherif") == 0){
+                bool won = duel();
+                if(won)
+                    currentRoom->addItem(new Item("prisonKey", 1, 0));
+            }
+
+        }
+        else{
+            if(temp.getShortDescription().compare("prisonKey") == 0){
+                rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
+            }
+            else if(temp.getShortDescription().compare("tavernKey")){
+               // rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
+            }
+            else if(temp.getShortDescription().compare("drink")){
+               // rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
+            }
+        }
+
+
+    }
+    /*int num = player->getNumOfItems();
+    for(int i = 0 ; i < num ; i++){
+         if(player->getItem(i).compare("prisonKey") == 0){
+             rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
+         }
+    }*/
+
+    return result ;
+}
+bool ZorkUL::duel(){
+    //keyPressReceiver event;
+    //return event.eventFilter();
+    return true;
+}
+void ZorkUL::setKeyPressed(QKeyEvent* keyPressed){
+    int x = keyPressed->key();
+    cout << x << endl;
+}
+
+string ZorkUL::getInventory(){
+   return player->longDescription();
+}
+
 /** COMMANDS **/
 void ZorkUL::printHelp() {
     cout << "valid inputs are; " << endl;
