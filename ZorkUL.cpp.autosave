@@ -239,7 +239,7 @@ string ZorkUL::takeItem(){
     return result ;
 }
 bool ZorkUL::duel(){
-     QTimer::singleShot(5000, this, SLOT(generateKey()));
+    QTimer::singleShot(5000,, SLOT(generateKey()));
     return true;
 }
 void ZorkUL::setKeyPressed(QKeyEvent* keyPressed){

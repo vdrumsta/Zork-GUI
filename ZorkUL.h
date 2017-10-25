@@ -20,6 +20,10 @@ private:
     Room *currentRoom;
     Character *player ;
     vector<Room*> rooms;
+    bool won ;
+    bool inDuel;
+    int timerID;
+    int keyGenerated;
 	void createRooms();
     void createPlayer();
 	void printWelcome();
@@ -31,6 +35,8 @@ private:
     void displayItems();
     void teleportRandomRoom();
 
+private slots:
+    void generateKey();
 public:
 	ZorkUL();
     void loadRoomImages();
@@ -42,6 +48,7 @@ public:
     void processButton(Command command);
     string shortDescription();
 	string go(string direction);
+
 };
 
 #endif /*ZORKUL_H_*/
