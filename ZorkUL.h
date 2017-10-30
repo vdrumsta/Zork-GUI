@@ -35,11 +35,13 @@ private:
     void displayItems();
     void teleportRandomRoom();
 
-private slots:
-    void generateKey();
+
 public:
 	ZorkUL();
     void loadRoomImages();
+    void generateKey();
+    void setDuel();
+    int getKeyGen();
     QGraphicsScene* getCurrentRoomImage();
     void play();
     void setKeyPressed(QKeyEvent* keyPressed);

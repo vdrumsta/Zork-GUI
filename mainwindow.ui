@@ -125,6 +125,19 @@
      <string>player inventory</string>
     </property>
    </widget>
+   <widget class="QLabel" name="keyToP">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>260</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>key to press</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
+#include <QTimer>
 
 using namespace std;
 #include "ZorkUL.h"
@@ -19,9 +20,30 @@ MainWindow::MainWindow(QWidget *parent) :
     zorkUL.loadRoomImages();
 
     // Display starting room image
+    QTimer *timer = new QTimer(this);
 
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateUI()));
+
+    timer->start(1000);
 
     displayCurrentRoomImage();
+}
+void MainWindow::updateUI(){
+    updateRoomLabel();
+    updatePlaverInventLabel();
+    if(zorkUL.getKeyGen() > 0){
+        QTimer::singleShot(5000, this,SLOT(setDuel()));
+    }
+
+
+}
+void MainWindow::setDuel(){
+    zorkUL.setDuel();
+}
+void MainWindow::showKey(){
+    char x = zorkUL.getKeyGen();
+    ui->keyToP->setText(x);
+
 }
 
 void MainWindow::displayCurrentRoomImage() {

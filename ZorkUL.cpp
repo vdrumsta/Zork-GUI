@@ -1,8 +1,9 @@
-//#include <QKeyEvent>
 #include <QKeyEvent>
-#include <QTimer>
 #include <iostream>
 #include <vector>
+#include <thread>
+#include <chrono>
+
 
 using namespace std;
 #include "ZorkUL.h"
@@ -15,7 +16,7 @@ ZorkUL::ZorkUL() {
 void ZorkUL::createRooms()  {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
     keyGenerated = 0 ;
-
+    inDuel = false ;
     a = new Room("a");
       //  a->addItem(new Item("x", 1, 11));
       //  a->addItem(new Item("y", 2, 22));
@@ -73,7 +74,12 @@ void ZorkUL::loadRoomImages() {
 }
 
 string ZorkUL::shortDescription() {
-    return currentRoom->longDescription();
+    string temp = currentRoom->longDescription();
+    if(inDuel)
+        temp += "true";
+    else
+        temp += "false";
+    return temp ;
 }
 
 void ZorkUL::processButton(Command command) {
@@ -206,10 +212,11 @@ string ZorkUL::takeItem(){
         currentRoom->removeItem(location);
         player->addItem(temp);
         result = player->longDescription();
-        if(temp.getType() == 0){
+
+        if(temp.getType() == 1){
 
             if(temp.getShortDescription().compare("sherif") == 0){
-                won = duel();
+                inDuel = duel();
                 if(won)
                     currentRoom->addItem(new Item("prisonKey", 1, 0));
             }
@@ -239,7 +246,7 @@ string ZorkUL::takeItem(){
     return result ;
 }
 bool ZorkUL::duel(){
-     QTimer::singleShot(5000, this, SLOT(generateKey()));
+    keyGenerated = (rand()%25)+65;
     return true;
 }
 void ZorkUL::setKeyPressed(QKeyEvent* keyPressed){
@@ -253,7 +260,16 @@ void ZorkUL::setKeyPressed(QKeyEvent* keyPressed){
     int x = keyPressed->key();
     cout << x << endl;
 }
+void ZorkUL::setDuel(){
+    inDuel = false ;
+}
+
+int ZorkUL::getKeyGen(){
+    return keyGenerated;
+}
+
 void ZorkUL::generateKey(){
+
     keyGenerated = (rand()%25)+65;
 }
 
