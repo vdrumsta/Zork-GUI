@@ -6,6 +6,10 @@ Character::Character(string description) {
 void Character::addItem(Item &item) {
     itemsInCharacter.push_back(item.getShortDescription());
 }
+void Character::removeItem(int x){
+
+    itemsInCharacter.erase(itemsInCharacter.begin()+x);
+}
 /*void Character::addItem(Item *item) {
     itemsInCharacter.push_back(*item);
     delete item;

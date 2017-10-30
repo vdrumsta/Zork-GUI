@@ -19,7 +19,7 @@ public:
 
 
 private slots:
-    void updateUI();
+     void updateUI();
     void setDuel();
     void showKey();
     void on_northButton_clicked();

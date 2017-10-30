@@ -16,6 +16,7 @@ private:
     vector < string > itemsInCharacter;
 public:
     void addItem(Item &item);
+    void removeItem(int x);
 	Character(string description);
 	string shortDescription();
 	string longDescription();

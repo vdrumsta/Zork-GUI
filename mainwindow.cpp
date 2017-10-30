@@ -32,16 +32,26 @@ void MainWindow::updateUI(){
     updateRoomLabel();
     updatePlaverInventLabel();
     if(zorkUL.getKeyGen() > 0){
-        QTimer::singleShot(5000, this,SLOT(setDuel()));
-    }
+        QTimer::singleShot(5000, this,SLOT(showKey()));
+        QTimer::singleShot(7000, this,SLOT(setDuel()));
 
+    }
+    if(zorkUL.getAnimForDuel()){
+        QString x = "";
+        if(zorkUL.getWon()){
+            x = "you win";
+        }
+        else
+            x = "you lost";
+        ui->keyToP->setText(x);
+    }
 
 }
 void MainWindow::setDuel(){
     zorkUL.setDuel();
 }
 void MainWindow::showKey(){
-    char x = zorkUL.getKeyGen();
+    QChar x =  zorkUL.getKeyGen();
     ui->keyToP->setText(x);
 
 }

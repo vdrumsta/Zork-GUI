@@ -38,6 +38,7 @@ public:
     QGraphicsView *graphicsView;
     QPushButton *take;
     QLabel *playerInventory;
+    QLabel *keyToP;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -76,6 +77,9 @@ public:
         playerInventory = new QLabel(centralWidget);
         playerInventory->setObjectName(QStringLiteral("playerInventory"));
         playerInventory->setGeometry(QRect(100, 280, 101, 101));
+        keyToP = new QLabel(centralWidget);
+        keyToP->setObjectName(QStringLiteral("keyToP"));
+        keyToP->setGeometry(QRect(130, 260, 61, 21));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -103,6 +107,7 @@ public:
         roomDescription->setText(QApplication::translate("MainWindow", "room", 0));
         take->setText(QApplication::translate("MainWindow", "take Item", 0));
         playerInventory->setText(QApplication::translate("MainWindow", "player inventory", 0));
+        keyToP->setText(QApplication::translate("MainWindow", "key to press", 0));
     } // retranslateUi
 
 };

@@ -21,6 +21,7 @@ private:
     Character *player ;
     vector<Room*> rooms;
     bool won ;
+    bool doAnimForDuel ;
     bool inDuel;
     int timerID;
     int keyGenerated;
@@ -34,6 +35,7 @@ private:
     void createItems();
     void displayItems();
     void teleportRandomRoom();
+    void addResultOfDuel();
 
 
 public:
@@ -42,6 +44,8 @@ public:
     void generateKey();
     void setDuel();
     int getKeyGen();
+    bool getAnimForDuel();
+    bool getWon();
     QGraphicsScene* getCurrentRoomImage();
     void play();
     void setKeyPressed(QKeyEvent* keyPressed);
