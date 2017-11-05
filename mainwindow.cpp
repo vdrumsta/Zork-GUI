@@ -3,6 +3,7 @@
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include <QTimer>
+#include <QFontDatabase>
 
 using namespace std;
 #include "ZorkUL.h"
@@ -16,22 +17,60 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     updateRoomLabel();
     setFocusPolicy(Qt::StrongFocus);
+
     // Load all images
     zorkUL.loadRoomImages();
 
     // Display starting room image
+    displayCurrentRoomImage();
+
+    // Display an image on combat view
+    combatScene = new QGraphicsScene(this);
+    ui->graphicsView->setScene(combatScene);
+
+    duelStarted = false;
+
+    string backgroundImgPath = "../ZorkGUIProject/images/combat.png";
+    QImage backgroundQImage(QString::fromStdString(backgroundImgPath));
+    QGraphicsPixmapItem *backgroundItem = combatScene->addPixmap(QPixmap::fromImage(backgroundQImage));
+
+    string cowboyImgPath = "../ZorkGUIProject/images/cowboy.png";
+    QImage cowboyQImage(QString::fromStdString(cowboyImgPath));
+
+    cowboy1Item = combatScene->addPixmap(QPixmap::fromImage(cowboyQImage));
+    cowboy2Item = combatScene->addPixmap(QPixmap::fromImage(cowboyQImage));
+    combatText = new QGraphicsTextItem();
+    combatScene->addItem(combatText);
+
+    // Change the font and color of combat text
+    QFontDatabase::addApplicationFont("../ZorkGUIProject/fonts/arbutus.ttf");
+    QFont combatTextFont;
+    combatTextFont.setPointSize(25);
+    combatTextFont.setFamily("arbutus");
+    combatText->setFont(combatTextFont);
+    QColor combatTextColor(125, 0, 0, 255);
+    combatText->setDefaultTextColor(combatTextColor);
+
+    cowboy1Item->setPos(50, 50);
+    cowboy2Item->moveBy(ui->graphicsView->width() - 75, 50);
+
     QTimer *timer = new QTimer(this);
 
     connect(timer, SIGNAL(timeout()), this, SLOT(updateUI()));
 
     timer->start(1000);
 
-    displayCurrentRoomImage();
 }
 void MainWindow::updateUI(){
     updateRoomLabel();
     updatePlaverInventLabel();
+    //combatText->moveBy(10,5);
     if(zorkUL.getKeyGen() > 0){
+        if (!duelStarted) {
+            changeCombatText(QString::fromStdString("Get ready to draw!"));
+            duelStarted = true;
+        }
+
         QTimer::singleShot(5000, this,SLOT(showKey()));
         QTimer::singleShot(7000, this,SLOT(setDuel()));
 
@@ -39,21 +78,30 @@ void MainWindow::updateUI(){
     if(zorkUL.getAnimForDuel()){
         QString x = "";
         if(zorkUL.getWon()){
-            x = "you win";
+            changeCombatText(QString::fromStdString("You won!"));
         }
-        else
-            x = "you lost";
-        ui->keyToP->setText(x);
+        else {
+            changeCombatText(QString::fromStdString("You lost!"));
+        }
     }
-
 }
+
+void MainWindow::changeCombatText(QString text) {
+    combatText->setPlainText(text);
+
+    int xPos = ui->graphicsView->width() / 2;
+    int yPos = ui->graphicsView->height() / 2;
+    combatText->setPos(xPos - combatText->boundingRect().width()/2.0, yPos);
+}
+
 void MainWindow::setDuel(){
     zorkUL.setDuel();
 }
 void MainWindow::showKey(){
     QChar x =  zorkUL.getKeyGen();
-    ui->keyToP->setText(x);
-
+    QString pressString = QString::fromStdString("Press ");
+    pressString += x;
+    changeCombatText(pressString);
 }
 
 void MainWindow::displayCurrentRoomImage() {

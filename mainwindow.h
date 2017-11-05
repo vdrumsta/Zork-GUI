@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QGraphicsPixmapItem>
 
+using namespace std;
+
 
 namespace Ui {
 class MainWindow;
@@ -37,7 +39,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QGraphicsTextItem *combatText;
+    QGraphicsPixmapItem *cowboy1Item;
+    QGraphicsPixmapItem *cowboy2Item;
+    QGraphicsScene *combatScene;
+    bool duelStarted;
     void showEvent(QShowEvent *);
+    void changeCombatText(QString);
     void displayCurrentRoomImage();
     void updateRoomLabel();
     void updatePlaverInventLabel();
