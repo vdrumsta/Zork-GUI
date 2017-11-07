@@ -54,7 +54,7 @@ public:
     void processButton(Command command);
     string shortDescription();
 	string go(string direction);
-
+    bool getDuel();
 };
 
 #endif /*ZORKUL_H_*/

@@ -21,9 +21,10 @@ public:
 
 
 private slots:
-     void updateUI();
+    void updateUI();
     void setDuel();
     void showKey();
+    void stopCombatScene();
     void on_northButton_clicked();
 
     void on_teleportButton_clicked();
@@ -46,6 +47,9 @@ private:
     bool duelStarted;
     void showEvent(QShowEvent *);
     void changeCombatText(QString);
+    void buildCombatScene();
+    void startCombatScene();
+    void cowboyShoot(int);
     void displayCurrentRoomImage();
     void updateRoomLabel();
     void updatePlaverInventLabel();

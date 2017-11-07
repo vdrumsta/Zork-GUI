@@ -27,18 +27,50 @@ MainWindow::MainWindow(QWidget *parent) :
     // Display an image on combat view
     combatScene = new QGraphicsScene(this);
     ui->graphicsView->setScene(combatScene);
+    buildCombatScene();
 
     duelStarted = false;
 
+    QTimer *timer = new QTimer(this);
+
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateUI()));
+
+    timer->start(1000);
+
+}
+void MainWindow::updateUI(){
+    updateRoomLabel();
+    updatePlaverInventLabel();
+    
+    if(zorkUL.getKeyGen() > 0 && !duelStarted){
+        changeCombatText(QString::fromStdString("Get ready to draw!"));
+        startCombatScene();
+        duelStarted = true;
+
+        QTimer::singleShot(5000, this,SLOT(showKey()));
+        QTimer::singleShot(7000, this,SLOT(setDuel()));
+
+    }
+    if(zorkUL.getAnimForDuel() && zorkUL.getDuel()){
+        QString x = "";
+        if(zorkUL.getWon()){
+            cowboyShoot(1);
+            changeCombatText(QString::fromStdString("You won!"));
+        }
+        else {
+            cowboyShoot(2);
+            changeCombatText(QString::fromStdString("You lost!"));
+        }
+        QTimer::singleShot(2000, this,SLOT(stopCombatScene()));
+    }
+}
+
+void MainWindow::buildCombatScene() {
     string backgroundImgPath = "../ZorkGUIProject/images/combat.png";
     QImage backgroundQImage(QString::fromStdString(backgroundImgPath));
     QGraphicsPixmapItem *backgroundItem = combatScene->addPixmap(QPixmap::fromImage(backgroundQImage));
 
-    string cowboyImgPath = "../ZorkGUIProject/images/cowboy.png";
-    QImage cowboyQImage(QString::fromStdString(cowboyImgPath));
-
-    cowboy1Item = combatScene->addPixmap(QPixmap::fromImage(cowboyQImage));
-    cowboy2Item = combatScene->addPixmap(QPixmap::fromImage(cowboyQImage));
+    // Create combat text
     combatText = new QGraphicsTextItem();
     combatScene->addItem(combatText);
 
@@ -51,46 +83,56 @@ MainWindow::MainWindow(QWidget *parent) :
     QColor combatTextColor(125, 0, 0, 255);
     combatText->setDefaultTextColor(combatTextColor);
 
+    // Add cowboys
+    string cowboyImgPath = "../ZorkGUIProject/images/cowboy1.png";
+    QImage cowboyQImage(QString::fromStdString(cowboyImgPath));
+
+    cowboy1Item = combatScene->addPixmap(QPixmap::fromImage(cowboyQImage));
+    cowboy2Item = combatScene->addPixmap(QPixmap::fromImage(cowboyQImage));
+
     cowboy1Item->setPos(50, 50);
     cowboy2Item->moveBy(ui->graphicsView->width() - 75, 50);
 
-    QTimer *timer = new QTimer(this);
-
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateUI()));
-
-    timer->start(1000);
-
+    cowboy1Item->hide();
+    cowboy2Item->hide();
 }
-void MainWindow::updateUI(){
-    updateRoomLabel();
-    updatePlaverInventLabel();
-    //combatText->moveBy(10,5);
-    if(zorkUL.getKeyGen() > 0){
-        if (!duelStarted) {
-            changeCombatText(QString::fromStdString("Get ready to draw!"));
-            duelStarted = true;
-        }
 
-        QTimer::singleShot(5000, this,SLOT(showKey()));
-        QTimer::singleShot(7000, this,SLOT(setDuel()));
+void MainWindow::startCombatScene() {
+    string cowboy1ImgPath = "../ZorkGUIProject/images/cowboy1.png";
+    string cowboy2ImgPath = "../ZorkGUIProject/images/cowboy2.png";
+    QImage cowboy1QImage(QString::fromStdString(cowboy1ImgPath));
+    QImage cowboy2QImage(QString::fromStdString(cowboy2ImgPath));
 
+    cowboy1Item->setPixmap(QPixmap::fromImage(cowboy1QImage));
+    cowboy2Item->setPixmap(QPixmap::fromImage(cowboy2QImage));
+
+    cowboy1Item->show();
+    cowboy2Item->show();
+}
+
+void MainWindow::cowboyShoot(int cowboy) {
+    if (cowboy == 1) {
+        string cowboy1ImgPath = "../ZorkGUIProject/images/cowboy1shot.png";
+        QImage cowboy1QImage(QString::fromStdString(cowboy1ImgPath));
+        cowboy1Item->setPixmap(QPixmap::fromImage(cowboy1QImage));
+    } else {
+        string cowboy2ImgPath = "../ZorkGUIProject/images/cowboy2shot.png";
+        QImage cowboy2QImage(QString::fromStdString(cowboy2ImgPath));
+        cowboy2Item->setPixmap(QPixmap::fromImage(cowboy2QImage));
     }
-    if(zorkUL.getAnimForDuel()){
-        QString x = "";
-        if(zorkUL.getWon()){
-            changeCombatText(QString::fromStdString("You won!"));
-        }
-        else {
-            changeCombatText(QString::fromStdString("You lost!"));
-        }
-    }
+}
+
+void MainWindow::stopCombatScene() {
+    cowboy1Item->hide();
+    cowboy2Item->hide();
+    changeCombatText(QString::fromStdString(""));
 }
 
 void MainWindow::changeCombatText(QString text) {
     combatText->setPlainText(text);
 
     int xPos = ui->graphicsView->width() / 2;
-    int yPos = ui->graphicsView->height() / 2;
+    int yPos = ui->graphicsView->height() / 8;
     combatText->setPos(xPos - combatText->boundingRect().width()/2.0, yPos);
 }
 

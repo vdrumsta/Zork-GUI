@@ -252,6 +252,7 @@ bool ZorkUL::duel(){
     cout << keyGenerated << endl;
     return true;
 }
+
 void ZorkUL::setKeyPressed(QKeyEvent* keyPressed){
     if(inDuel){
         if(keyGenerated != 0){
@@ -304,6 +305,10 @@ void ZorkUL::generateKey(){
 
     keyGenerated = (rand()%25)+65;
 
+}
+
+bool ZorkUL::getDuel() {
+    return inDuel;
 }
 
 string ZorkUL::getInventory(){
