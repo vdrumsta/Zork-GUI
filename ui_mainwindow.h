@@ -35,7 +35,6 @@ public:
     QPushButton *westButton;
     QPushButton *eastButton;
     QPushButton *southButton;
-    QLabel *roomDescription;
     QGraphicsView *roomGraphicsView;
     QGraphicsView *combatGraphicsView;
     QPushButton *take;
@@ -51,7 +50,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(610, 591);
+        MainWindow->resize(611, 539);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         northButton = new QPushButton(centralWidget);
@@ -66,9 +65,6 @@ public:
         southButton = new QPushButton(centralWidget);
         southButton->setObjectName(QStringLiteral("southButton"));
         southButton->setGeometry(QRect(60, 220, 75, 23));
-        roomDescription = new QLabel(centralWidget);
-        roomDescription->setObjectName(QStringLiteral("roomDescription"));
-        roomDescription->setGeometry(QRect(20, 500, 191, 51));
         roomGraphicsView = new QGraphicsView(centralWidget);
         roomGraphicsView->setObjectName(QStringLiteral("roomGraphicsView"));
         roomGraphicsView->setGeometry(QRect(220, 130, 391, 361));
@@ -77,24 +73,24 @@ public:
         combatGraphicsView->setGeometry(QRect(0, 0, 611, 131));
         take = new QPushButton(centralWidget);
         take->setObjectName(QStringLiteral("take"));
-        take->setGeometry(QRect(4, 280, 81, 41));
+        take->setGeometry(QRect(10, 280, 81, 41));
         playerInventory = new QLabel(centralWidget);
         playerInventory->setObjectName(QStringLiteral("playerInventory"));
-        playerInventory->setGeometry(QRect(100, 280, 101, 101));
+        playerInventory->setGeometry(QRect(100, 240, 101, 101));
         HPBar = new QLabel(centralWidget);
         HPBar->setObjectName(QStringLiteral("HPBar"));
-        HPBar->setGeometry(QRect(290, 490, 61, 21));
+        HPBar->setGeometry(QRect(10, 330, 61, 21));
         Items = new QComboBox(centralWidget);
         Items->setObjectName(QStringLiteral("Items"));
-        Items->setGeometry(QRect(100, 340, 91, 22));
+        Items->setGeometry(QRect(100, 300, 91, 22));
         healthBar = new QProgressBar(centralWidget);
         healthBar->setObjectName(QStringLiteral("healthBar"));
-        healthBar->setGeometry(QRect(290, 510, 221, 21));
+        healthBar->setGeometry(QRect(10, 350, 201, 21));
         healthBar->setValue(24);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 610, 21));
+        menuBar->setGeometry(QRect(0, 0, 611, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -115,14 +111,9 @@ public:
         westButton->setText(QApplication::translate("MainWindow", "West", 0));
         eastButton->setText(QApplication::translate("MainWindow", "East", 0));
         southButton->setText(QApplication::translate("MainWindow", "South", 0));
-        roomDescription->setText(QApplication::translate("MainWindow", "room", 0));
         take->setText(QString());
         playerInventory->setText(QApplication::translate("MainWindow", "player inventory", 0));
         HPBar->setText(QApplication::translate("MainWindow", "HP Bar", 0));
-        Items->clear();
-        Items->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Items", 0)
-        );
     } // retranslateUi
 
 };

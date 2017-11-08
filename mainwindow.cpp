@@ -229,7 +229,7 @@ void MainWindow::on_teleportButton_clicked()
 void MainWindow::updateRoomLabel() {
     string roomDescription = zorkUL.shortDescription();
     QString qstr = QString::fromStdString(roomDescription);
-    ui->roomDescription->setText(qstr);
+    //ui->roomDescription->setText(qstr);
 }
 void MainWindow::updatePlaverInventLabel() {
     string temp = zorkUL.getInventory();
