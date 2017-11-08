@@ -35,7 +35,7 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-    cout << description;
+    //cout << description;
 
 	return "room = " + description + ".\n" + displayItem() + exitString();
 }
@@ -64,8 +64,6 @@ Room* Room::nextRoom(string direction) {
 }
 
 void Room::addItem(Item *inItem) {
-    //cout <<endl;
-    //cout << "Just added" + inItem->getLongDescription();
     itemsInRoom.push_back(*inItem);
 }
 

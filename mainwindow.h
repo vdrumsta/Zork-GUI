@@ -26,16 +26,9 @@ private slots:
     void showKey();
     void stopCombatScene();
     void on_northButton_clicked();
-
-    void on_teleportButton_clicked();
-
     void on_westButton_clicked();
-
     void on_southButton_clicked();
-
     void on_eastButton_clicked();
-
-
     void on_take_clicked();
 
 private:

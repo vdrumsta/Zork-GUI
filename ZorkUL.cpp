@@ -57,7 +57,7 @@ void ZorkUL::createRooms()  {
     i->setExits(NULL, d, NULL, NULL);
     j->setExits(NULL, NULL, NULL, b);
 
-        currentRoom = a;
+    currentRoom = a;
     Character *player  = new Character("player1");
 }
 void ZorkUL::createPlayer(){
@@ -145,46 +145,10 @@ bool ZorkUL::processCommand(Command command) {
         cout << "goes into teleport";
         teleportRandomRoom();
     }
-    /*else if (commandWord.compare("take") == 0)
-    {
-       	if (!command.hasSecondWord()) {
-        cout << "incomplete input"<< endl;
-        }
-        else
-         if (command.hasSecondWord()) {
-        cout << "you're trying to take " + command.getSecondWord() << endl;
-        int location = currentRoom->isItemInRoom(command.getSecondWord());
-        if (location  < 0 )
-            cout << "item is not in room" << endl;
-        else
-            cout << "item is in room" << endl;
-            cout << "index number " << + location << endl;
-            cout << endl;
-            cout << currentRoom->longDescription() << endl;
-            Item temp = currentRoom->getItem(location);
-            currentRoom->removeItem(location);
-            player->addItem(temp);
-            player->longDescription();
-
-        }
-    }*/
-
     else if (commandWord.compare("put") == 0)
     {
 
     }
-    /*
-    {
-    if (!command.hasSecondWord()) {
-        cout << "incomplete input"<< endl;
-        }
-        else
-            if (command.hasSecondWord()) {
-            cout << "you're adding " + command.getSecondWord() << endl;
-            itemsInRoom.push_Back;
-        }
-    }
-*/
     else if (commandWord.compare("quit") == 0) {
 		if (command.hasSecondWord())
             cout << "overdefined input"<< endl;
@@ -195,7 +159,6 @@ bool ZorkUL::processCommand(Command command) {
 }
 string ZorkUL::takeItem(){
     string result = "";
-    //cout << "you're trying to take prisonKey" << endl;
     int location = currentRoom->isItemInRoom();
     if (location  < 0 )
         cout << "item is not in room" << endl;
@@ -224,7 +187,6 @@ string ZorkUL::takeItem(){
 bool ZorkUL::duel(){
     srand((int)time(0));
     keyGenerated =65 + rand()%25;
-    cout << keyGenerated << endl;
     return true;
 }
 void ZorkUL::setKeyPressed(QKeyEvent* keyPressed){
@@ -243,7 +205,6 @@ void ZorkUL::setKeyPressed(QKeyEvent* keyPressed){
         }
     }
     keyPressedV = keyPressed->key();
-    cout << keyPressedV << endl;
 }
 string ZorkUL::getLastItem(){
     return player->getItem(player->getNumOfItems()-1);
@@ -262,7 +223,6 @@ void ZorkUL::addResultOfDuel(){
                  rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
              }
              else if (!won){
-                  cout <<  "im here"<< endl;
                  player->removeItem(i);
                  currentRoom->addItem(new Item("sherif", 1, 1));
              }
@@ -327,11 +287,9 @@ void ZorkUL::setDuel(){
 }
 
 int ZorkUL::getKeyGen(){
-     //cout << keyGenerated << endl;
     return keyGenerated;
 }
 bool ZorkUL::getAnimForDuel(){
-    //cout << doAnimForDuel << endl;
     return doAnimForDuel ;
 }
 bool ZorkUL::getWon(){
@@ -364,7 +322,6 @@ void ZorkUL::printHelp() {
 void ZorkUL::teleportRandomRoom() {
     int randomRoom = rand() % rooms.size();
     currentRoom = rooms[randomRoom];
-    //cout << currentRoom->longDescription() << endl;
 }
 
 void ZorkUL::goRoom(Command command) {

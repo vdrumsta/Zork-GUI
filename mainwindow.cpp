@@ -79,8 +79,7 @@ void MainWindow::updateUI(){
             changeCombatText(QString::fromStdString("You lost!"));
             zorkUL.setPlayerHealth(20);
         }
-         duelStarted = false;
-         ui->take->setDisabled(true);
+        duelStarted = false;
         QTimer::singleShot(2000, this,SLOT(stopCombatScene()));
     }
 }
@@ -208,7 +207,6 @@ void MainWindow::displayCurrentRoomImage() {
 
 //*
 void MainWindow::showEvent(QShowEvent *) {
-    cout << "show event" << endl;
     ui->roomGraphicsView->fitInView(ui->roomGraphicsView->scene()->sceneRect(),Qt::IgnoreAspectRatio);
 }
 //*/
@@ -219,13 +217,14 @@ MainWindow::~MainWindow()
 }
 
 
-
+/*  Commented out in case we need a teleport button later
 void MainWindow::on_teleportButton_clicked()
 {
     Command command("teleport", "");
     zorkUL.processButton(command);
     updateRoomLabel();
 }
+//*/
 
 void MainWindow::updateRoomLabel() {
     string roomDescription = zorkUL.shortDescription();
@@ -274,10 +273,8 @@ void MainWindow::on_eastButton_clicked()
 
 void MainWindow::on_take_clicked()
 {
-   // Command command("take", "prisonKey");
-    //zorkUL.processButton(command);
+   ui->take->setDisabled(true);
     zorkUL.takeItem();
-   // updatePlaverInventLabel();
     updateRoomLabel();
     displayCurrentRoomImage();
 }
