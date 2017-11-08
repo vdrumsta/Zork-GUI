@@ -4,6 +4,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QFontDatabase>
+#include <sstream>
 
 using namespace std;
 #include "ZorkUL.h"
@@ -23,13 +24,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Display starting room image
     displayCurrentRoomImage();
+    ui->take->setIcon(QIcon("../ZorkGUIProject/images/duel.png"));
+    ui->take->setIconSize(QSize(50,50));
+    ui->playerInventory->setText("Player inventory");
+     ui->healthBar->setValue(100);
+    changedRoom();
+
+
+
 
     // Display an image on combat view
     combatScene = new QGraphicsScene(this);
-    ui->graphicsView->setScene(combatScene);
+    ui->combatGraphicsView->setScene(combatScene);
     buildCombatScene();
 
     duelStarted = false;
+
 
     QTimer *timer = new QTimer(this);
 
@@ -40,8 +50,10 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 void MainWindow::updateUI(){
     updateRoomLabel();
-    updatePlaverInventLabel();
-    
+    ui->healthBar->setValue(zorkUL.getPlayerHealth());
+    //updatePlaverInventLabel();
+    if(zorkUL.getNumOfItemsInRoom())
+        ui->take->setEnabled(true);
     if(zorkUL.getKeyGen() > 0 && !duelStarted){
         changeCombatText(QString::fromStdString("Get ready to draw!"));
         startCombatScene();
@@ -51,18 +63,60 @@ void MainWindow::updateUI(){
         QTimer::singleShot(7000, this,SLOT(setDuel()));
 
     }
-    if(zorkUL.getAnimForDuel() && zorkUL.getDuel()){
-        QString x = "";
+    if(zorkUL.getAnimForDuel() && duelStarted){
         if(zorkUL.getWon()){
             cowboyShoot(1);
             changeCombatText(QString::fromStdString("You won!"));
+            if(zorkUL.getLastItem().compare("prisonKey")==0)
+                 ui->Items->addItem(QIcon("../ZorkGUIProject/images/prisonKey1.png"),"Prison Key");
+            else if(zorkUL.getLastItem().compare("finalBossKey")==0)
+                ui->Items->addItem(QIcon("../ZorkGUIProject/images/barKey.png"),"Bar Key");
+            else if(zorkUL.getLastItem().compare("drink")==0)
+                ui->Items->addItem(QIcon("../ZorkGUIProject/images/whiskey.png"),"Drink");
         }
         else {
             cowboyShoot(2);
             changeCombatText(QString::fromStdString("You lost!"));
+            zorkUL.setPlayerHealth(20);
         }
+         duelStarted = false;
+         ui->take->setDisabled(true);
         QTimer::singleShot(2000, this,SLOT(stopCombatScene()));
     }
+}
+void MainWindow::changedRoom(){
+    string s = zorkUL.getExit();
+       istringstream iss(s);
+     ui->northButton->setDisabled(true);
+     ui->eastButton->setDisabled(true);
+     ui->southButton->setDisabled(true);
+     ui->westButton->setDisabled(true);
+     ui->take->setDisabled(true);
+     if(zorkUL.getNumOfItemsInRoom())
+         ui->take->setEnabled(true);
+
+       do
+       {
+           string subs;
+           iss >> subs;
+
+            if(subs.compare("north")== 0)
+                ui->northButton->setEnabled(true);
+            /*else
+                ui->northButton->setDisabled(true);*/
+            if(subs.compare("east")== 0)
+                ui->eastButton->setEnabled(true);
+          /*  else
+                ui->eastButton->setDisabled(true);*/
+            if(subs.compare("south")== 0)
+                ui->southButton->setEnabled(true);
+            /*else
+                ui->southButton->setDisabled(true);*/
+            if(subs.compare("west")== 0)
+                ui->westButton->setEnabled(true);
+           /* else
+                ui->westButton->setDisabled(true);*/
+       } while (iss);
 }
 
 void MainWindow::buildCombatScene() {
@@ -91,7 +145,7 @@ void MainWindow::buildCombatScene() {
     cowboy2Item = combatScene->addPixmap(QPixmap::fromImage(cowboyQImage));
 
     cowboy1Item->setPos(50, 50);
-    cowboy2Item->moveBy(ui->graphicsView->width() - 75, 50);
+    cowboy2Item->moveBy(ui->combatGraphicsView->width() - 75, 50);
 
     cowboy1Item->hide();
     cowboy2Item->hide();
@@ -131,8 +185,8 @@ void MainWindow::stopCombatScene() {
 void MainWindow::changeCombatText(QString text) {
     combatText->setPlainText(text);
 
-    int xPos = ui->graphicsView->width() / 2;
-    int yPos = ui->graphicsView->height() / 8;
+    int xPos = ui->combatGraphicsView->width() / 2;
+    int yPos = ui->combatGraphicsView->height() / 8;
     combatText->setPos(xPos - combatText->boundingRect().width()/2.0, yPos);
 }
 
@@ -189,6 +243,7 @@ void MainWindow::on_northButton_clicked()
     zorkUL.processButton(command);
     updateRoomLabel();
     displayCurrentRoomImage();
+    changedRoom();
 }
 void MainWindow::on_westButton_clicked()
 {
@@ -196,6 +251,7 @@ void MainWindow::on_westButton_clicked()
     zorkUL.processButton(command);
     updateRoomLabel();
     displayCurrentRoomImage();
+    changedRoom();
 }
 
 void MainWindow::on_southButton_clicked()
@@ -204,6 +260,7 @@ void MainWindow::on_southButton_clicked()
     zorkUL.processButton(command);
     updateRoomLabel();
     displayCurrentRoomImage();
+    changedRoom();
 }
 
 void MainWindow::on_eastButton_clicked()
@@ -212,6 +269,7 @@ void MainWindow::on_eastButton_clicked()
     zorkUL.processButton(command);
     updateRoomLabel();
     displayCurrentRoomImage();
+    changedRoom();
 }
 
 void MainWindow::on_take_clicked()
@@ -219,7 +277,7 @@ void MainWindow::on_take_clicked()
    // Command command("take", "prisonKey");
     //zorkUL.processButton(command);
     zorkUL.takeItem();
-    updatePlaverInventLabel();
+   // updatePlaverInventLabel();
     updateRoomLabel();
     displayCurrentRoomImage();
 }

@@ -28,6 +28,8 @@ string Character::getItem(int x){
     string temp  = "" + itemsInCharacter[x];
     return temp ;
 }
+
+
 int Character::getNumOfItems(){
     return itemsInCharacter.size();
 }

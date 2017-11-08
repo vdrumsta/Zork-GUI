@@ -16,7 +16,8 @@ using namespace std;
 class ZorkUL {
 private:
 	Parser parser;
-    QKeyEvent* keyPressed ;
+    int keyPressedV ;
+    int playerHealth;
     Room *currentRoom;
     Character *player ;
     vector<Room*> rooms;
@@ -55,6 +56,12 @@ public:
     string shortDescription();
 	string go(string direction);
     bool getDuel();
+    string getLastItem();
+    string getExit();
+    int getNumOfItemsInRoom();
+    void setPlayerHealth(int x);
+    int getPlayerHealth();
+
 };
 
 #endif /*ZORKUL_H_*/

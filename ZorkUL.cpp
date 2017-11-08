@@ -16,20 +16,20 @@ ZorkUL::ZorkUL() {
 void ZorkUL::createRooms()  {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
     keyGenerated = 0 ;
+    keyPressedV = 0;
+    playerHealth = 100;
     inDuel = false ;
     doAnimForDuel = false ;
     a = new Room("a");
-      //  a->addItem(new Item("x", 1, 11));
-      //  a->addItem(new Item("y", 2, 22));
     b = new Room("b");
         b->addItem(new Item("prisoner", 1, 2));
-        //b->addItem(new Item("tavernkey", 1,1));
     c = new Room("c");
         c->addItem(new Item("sherif", 1, 1));
     d = new Room("d");
     e = new Room("e");
     f = new Room("f");
     g = new Room("g");
+         g->addItem(new Item("finalBoss", 1, 3));
     h = new Room("h");
     i = new Room("i");
     j = new Room("j");
@@ -51,7 +51,7 @@ void ZorkUL::createRooms()  {
     c->setExits(NULL, a, NULL, NULL);
     d->setExits(a, e, NULL, i);
     e->setExits(NULL, NULL, NULL, d);
-    f->setExits(NULL, g, a, h);
+    f->setExits(NULL, NULL, a, h);
     g->setExits(NULL, NULL, NULL, f);
     h->setExits(NULL, f, NULL, NULL);
     i->setExits(NULL, d, NULL, NULL);
@@ -75,11 +75,7 @@ void ZorkUL::loadRoomImages() {
 }
 
 string ZorkUL::shortDescription() {
-    string temp = currentRoom->longDescription();
-    if(inDuel)
-        temp += "true";
-    else
-        temp += "false";
+    string temp = currentRoom->longDescription(); 
     return temp ;
 }
 
@@ -215,34 +211,13 @@ string ZorkUL::takeItem(){
         result = player->longDescription();
 
         if(temp.getType() == 1){
-
-            if(temp.getShortDescription().compare("sherif") == 0){
                 inDuel = duel();
-                if(won)
-                    currentRoom->addItem(new Item("prisonKey", 1, 0));
-            }
-
-        }
-        else{
-            if(temp.getShortDescription().compare("prisonKey") == 0){
-                rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
-            }
-            else if(temp.getShortDescription().compare("tavernKey")){
-               // rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
-            }
-            else if(temp.getShortDescription().compare("drink")){
-               // rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
-            }
+                doAnimForDuel = false;
         }
 
 
     }
-    /*int num = player->getNumOfItems();
-    for(int i = 0 ; i < num ; i++){
-         if(player->getItem(i).compare("prisonKey") == 0){
-             rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
-         }
-    }*/
+
 
     return result ;
 }
@@ -252,7 +227,6 @@ bool ZorkUL::duel(){
     cout << keyGenerated << endl;
     return true;
 }
-
 void ZorkUL::setKeyPressed(QKeyEvent* keyPressed){
     if(inDuel){
         if(keyGenerated != 0){
@@ -261,40 +235,103 @@ void ZorkUL::setKeyPressed(QKeyEvent* keyPressed){
                 doAnimForDuel = true;
                 addResultOfDuel();
             }
+            else{
+                addResultOfDuel();
+                won = false;
+                doAnimForDuel = true;
+            }
         }
     }
-    int x = keyPressed->key();
-    cout << x << endl;
+    keyPressedV = keyPressed->key();
+    cout << keyPressedV << endl;
 }
+string ZorkUL::getLastItem(){
+    return player->getItem(player->getNumOfItems()-1);
+}
+
 void ZorkUL::addResultOfDuel(){
     for(int i = 0 ; i < player->getNumOfItems() ; i++)
     {
-        Item temp = player->getItem(i);
-         if(temp.getShortDescription().compare("sherif") == 0){
-             currentRoom->addItem(new Item("prisonKey", 0, 0));
-             player->removeItem(i);
+
+        string temp = player->getItem(i);
+         if(temp.compare("sherif") == 0){
+             if(won){
+                 player->removeItem(i);
+                 Item *key = new Item("prisonKey", 0, 0);
+                 player->addItem(*key);
+                 rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
+             }
+             else if (!won){
+                  cout <<  "im here"<< endl;
+                 player->removeItem(i);
+                 currentRoom->addItem(new Item("sherif", 1, 1));
+             }
+
+             keyGenerated = 0;
+             keyPressedV = 0;
+
          }
-         else if(temp.getShortDescription().compare("prisoner") == 0){
-             currentRoom->addItem(new Item("finalBossKey", 0, 1));
-             player->removeItem(i);
+         else if(temp.compare("prisoner") == 0){
+             if(won){
+                 player->removeItem(i);
+                 Item *key = new Item("finalBossKey", 0, 1);
+                 player->addItem(*key);
+                 rooms[5]->setExits(NULL, rooms[6], rooms[0], rooms[7]);
+             }
+             else if(!won){
+                 player->removeItem(i);
+                 currentRoom->addItem(new Item("prisoner", 1, 2));
+             }
+
+             keyGenerated = 0;
+             keyPressedV = 0;
          }
-         else if(temp.getShortDescription().compare("finalBoss") == 0){
-             currentRoom->addItem(new Item("drink", 0, 2));
-             player->removeItem(i);
+         else if(temp.compare("finalBoss") == 0){
+             if(won){
+                 player->removeItem(i);
+                 Item *key = new Item("drink", 0, 2);
+                 player->addItem(*key);
+             }
+             else if(!won){
+                 player->removeItem(i);
+                 currentRoom->addItem(new Item("finalBoss", 1, 3));
+             }
+
+             keyGenerated = 0;
+             keyPressedV = 0;
          }
     }
 
+}
+string ZorkUL::getExit(){
+    cout <<  currentRoom->getExit() << endl;
+    return currentRoom->getExit();
+}
+int ZorkUL::getNumOfItemsInRoom(){
+    return currentRoom->numberOfItems();
+}
+
+bool ZorkUL::getDuel(){
+    return inDuel;
 }
 
 void ZorkUL::setDuel(){
     inDuel = false ;
     doAnimForDuel = true;
+    if((keyGenerated != keyPressedV) ||(keyPressedV == 0)){
+
+        won= false;
+        addResultOfDuel();
+        //doAnimForDuel = false;
+    }
 }
 
 int ZorkUL::getKeyGen(){
+     //cout << keyGenerated << endl;
     return keyGenerated;
 }
 bool ZorkUL::getAnimForDuel(){
+    //cout << doAnimForDuel << endl;
     return doAnimForDuel ;
 }
 bool ZorkUL::getWon(){
@@ -306,9 +343,11 @@ void ZorkUL::generateKey(){
     keyGenerated = (rand()%25)+65;
 
 }
-
-bool ZorkUL::getDuel() {
-    return inDuel;
+void ZorkUL::setPlayerHealth(int x){
+    playerHealth = playerHealth - x ;
+}
+int ZorkUL::getPlayerHealth(){
+    return playerHealth;
 }
 
 string ZorkUL::getInventory(){

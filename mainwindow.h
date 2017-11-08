@@ -55,6 +55,7 @@ private:
     void updatePlaverInventLabel();
     //bool eventFilter(QObject* obj, QEvent* event);
     void keyPressEvent(QKeyEvent* e);
+    void changedRoom();
 
 };
 

@@ -41,6 +41,7 @@ public:
     Item getItem(int x);
     void removeItem(int x);
     void removeItemFromRoom(int location);
+    string getExit();
 };
 
 #endif

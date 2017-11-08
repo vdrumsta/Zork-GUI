@@ -47,6 +47,13 @@ string Room::exitString() {
 		returnString += "  " + i->first;	// access the "first" element of the pair (direction as a string)
 	return returnString;
 }
+string Room::getExit(){
+    string returnString = "";
+    for (map<string, Room*>::iterator i = exits.begin(); i != exits.end(); i++)
+        // Loop through map
+        returnString += i->first + " " ;	// access the "first" element of the pair (direction as a string)
+    return returnString;
+}
 
 Room* Room::nextRoom(string direction) {
 	map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
