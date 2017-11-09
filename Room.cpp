@@ -30,6 +30,13 @@ void Room::loadImage() {
     roomScene->addItem(roomImage);
 }
 
+void Room::changeImage(string path) {
+    roomQImage = new QImage(QString::fromStdString(path));
+    roomImage = new QGraphicsPixmapItem(QPixmap::fromImage(*roomQImage));
+    roomScene = new QGraphicsScene();
+    roomScene->addItem(roomImage);
+}
+
 string Room::shortDescription() {
 	return description;
 }
@@ -112,6 +119,7 @@ Item Room::getItem(int x){
     return itemsInRoom[x];
 
 }
+
 void Room::removeItem(int x){
 
     itemsInRoom.erase(itemsInRoom.begin()+x);

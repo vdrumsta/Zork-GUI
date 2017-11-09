@@ -30,12 +30,15 @@ private slots:
     void on_southButton_clicked();
     void on_eastButton_clicked();
     void on_take_clicked();
+    void gameOverLose();
+    void gameOverWin();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsTextItem *combatText;
     QGraphicsPixmapItem *cowboy1Item;
     QGraphicsPixmapItem *cowboy2Item;
+    QGraphicsPixmapItem *backgroundItem;
     QGraphicsScene *combatScene;
     bool duelStarted;
     void showEvent(QShowEvent *);

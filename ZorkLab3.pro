@@ -17,22 +17,22 @@ SOURCES += main.cpp\
     Character.cpp \
     Command.cpp \
     CommandWords.cpp \
-    item.cpp \
     Parser.cpp \
     Room.cpp \
     ZorkUL.cpp \
-    keypressreceiver.cpp
+    keypressreceiver.cpp \
+    item.cpp
 
 HEADERS  += mainwindow.h \
     Character.h \
     Command.h \
     CommandWords.h \
-    item.h \
     Parser.h \
     Room.h \
     ui_mainwindow.h \
     ZorkUL.h \
-    keypressreceiver.h
+    keypressreceiver.h \
+    item.h
 
 FORMS    += mainwindow.ui
 

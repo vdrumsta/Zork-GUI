@@ -3,7 +3,7 @@
 Character::Character(string description) {
 	this->description = description;
 }
-void Character::addItem(Item &item) {
+void Character::addItem(Item item) {
     itemsInCharacter.push_back(item.getShortDescription());
 }
 void Character::removeItem(int x){

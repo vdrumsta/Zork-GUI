@@ -67,22 +67,43 @@ void MainWindow::updateUI(){
         if(zorkUL.getWon()){
             cowboyShoot(1);
             changeCombatText(QString::fromStdString("You won!"));
-            if(zorkUL.getLastItem().compare("prisonKey")==0)
+            if(zorkUL.getLastItem().compare("prisonKey")==0) {
                  ui->Items->addItem(QIcon("../ZorkGUIProject/images/prisonKey1.png"),"Prison Key");
-            else if(zorkUL.getLastItem().compare("finalBossKey")==0)
+                 zorkUL.changeRoomImage("../ZorkGUIProject/images/cCleared.png");
+            }
+            else if(zorkUL.getLastItem().compare("finalBossKey")==0) {
                 ui->Items->addItem(QIcon("../ZorkGUIProject/images/barKey.png"),"Bar Key");
-            else if(zorkUL.getLastItem().compare("drink")==0)
+            }
+            else if(zorkUL.getLastItem().compare("drink")==0) {
                 ui->Items->addItem(QIcon("../ZorkGUIProject/images/whiskey.png"),"Drink");
+                QTimer::singleShot(1000 , this,SLOT(gameOverWin()));
+            }
         }
         else {
             cowboyShoot(2);
             changeCombatText(QString::fromStdString("You lost!"));
             zorkUL.setPlayerHealth(20);
+            if (zorkUL.getPlayerHealth() <= 0) {
+                QTimer::singleShot(1000 , this,SLOT(gameOverLose()));
+            }
         }
         duelStarted = false;
-        QTimer::singleShot(2000, this,SLOT(stopCombatScene()));
+        QTimer::singleShot(1000, this,SLOT(stopCombatScene()));
     }
 }
+
+void MainWindow::gameOverLose() {
+    string gameOverImgPath = "../ZorkGUIProject/images/gameOverLose.png";
+    QImage gameOverImage(QString::fromStdString(gameOverImgPath));
+    backgroundItem->setPixmap(QPixmap::fromImage(gameOverImage));
+}
+
+void MainWindow::gameOverWin() {
+    string gameOverImgPath = "../ZorkGUIProject/images/gameOverWin.png";;
+    QImage gameOverImage(QString::fromStdString(gameOverImgPath));
+    backgroundItem->setPixmap(QPixmap::fromImage(gameOverImage));
+}
+
 void MainWindow::changedRoom(){
     string s = zorkUL.getExit();
        istringstream iss(s);
@@ -121,7 +142,7 @@ void MainWindow::changedRoom(){
 void MainWindow::buildCombatScene() {
     string backgroundImgPath = "../ZorkGUIProject/images/combat.png";
     QImage backgroundQImage(QString::fromStdString(backgroundImgPath));
-    QGraphicsPixmapItem *backgroundItem = combatScene->addPixmap(QPixmap::fromImage(backgroundQImage));
+    backgroundItem = combatScene->addPixmap(QPixmap::fromImage(backgroundQImage));
 
     // Create combat text
     combatText = new QGraphicsTextItem();
@@ -273,10 +294,11 @@ void MainWindow::on_eastButton_clicked()
 
 void MainWindow::on_take_clicked()
 {
-   ui->take->setDisabled(true);
-    zorkUL.takeItem();
-    updateRoomLabel();
-    displayCurrentRoomImage();
+    if (zorkUL.getNumOfItemsInRoom() > 0) {
+        zorkUL.takeItem();
+        updateRoomLabel();
+        displayCurrentRoomImage();
+    }
 }
 /*bool MainWindow::eventFilter(QObject* obj, QEvent* event){
 

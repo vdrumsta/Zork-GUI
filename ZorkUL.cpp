@@ -22,7 +22,6 @@ void ZorkUL::createRooms()  {
     doAnimForDuel = false ;
     a = new Room("a");
     b = new Room("b");
-        b->addItem(new Item("prisoner", 1, 2));
     c = new Room("c");
         c->addItem(new Item("sherif", 1, 1));
     d = new Room("d");
@@ -33,6 +32,7 @@ void ZorkUL::createRooms()  {
     h = new Room("h");
     i = new Room("i");
     j = new Room("j");
+        j->addItem(new Item("prisoner", 1, 2));
 
     rooms.push_back(a);//0
     rooms.push_back(b);//1
@@ -46,8 +46,8 @@ void ZorkUL::createRooms()  {
     rooms.push_back(j);//9
 
 //             (N, E, S, W)
-    a->setExits(f, NULL, d, c);
-    b->setExits(NULL, j, NULL, a);
+    a->setExits(f, b, d, c);
+    b->setExits(NULL, NULL, NULL, a);
     c->setExits(NULL, a, NULL, NULL);
     d->setExits(a, e, NULL, i);
     e->setExits(NULL, NULL, NULL, d);
@@ -58,7 +58,6 @@ void ZorkUL::createRooms()  {
     j->setExits(NULL, NULL, NULL, b);
 
     currentRoom = a;
-    Character *player  = new Character("player1");
 }
 void ZorkUL::createPlayer(){
      player  = new Character("player1");
@@ -163,22 +162,15 @@ string ZorkUL::takeItem(){
     if (location  < 0 )
         cout << "item is not in room" << endl;
     else{
-
-        cout << "item is in room" << endl;
-        cout << "index number " << + location << endl;
-        cout << endl;
         cout << currentRoom->longDescription() << endl;
         Item temp = currentRoom->getItem(location);
         currentRoom->removeItem(location);
         player->addItem(temp);
+        //delete temp;
         result = player->longDescription();
 
-        if(temp.getType() == 1){
-                inDuel = duel();
-                doAnimForDuel = false;
-        }
-
-
+        inDuel = duel();
+        doAnimForDuel = false;
     }
 
 
@@ -220,7 +212,7 @@ void ZorkUL::addResultOfDuel(){
                  player->removeItem(i);
                  Item *key = new Item("prisonKey", 0, 0);
                  player->addItem(*key);
-                 rooms[0]->setExits(rooms[5], rooms[1], rooms[3], rooms[2]);
+                 rooms[1]->setExits(NULL, rooms[9], NULL, rooms[0]);
              }
              else if (!won){
                  player->removeItem(i);
@@ -350,4 +342,9 @@ string ZorkUL::go(string direction) {
 		currentRoom = nextRoom;
 		return currentRoom->longDescription();
 	}
+}
+
+void ZorkUL::changeRoomImage(string path) {
+    cout << "in zorkUL change room";
+    currentRoom->changeImage(path);
 }

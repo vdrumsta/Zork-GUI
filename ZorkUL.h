@@ -61,6 +61,7 @@ public:
     int getNumOfItemsInRoom();
     void setPlayerHealth(int x);
     int getPlayerHealth();
+    void changeRoomImage(string);
 
 };
 
