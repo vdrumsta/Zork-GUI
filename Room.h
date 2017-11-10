@@ -43,6 +43,7 @@ public:
     void removeItemFromRoom(int location);
     string getExit();
     void changeImage(string path);
+    ~Room();
 };
 
 #endif

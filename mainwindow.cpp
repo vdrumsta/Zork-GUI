@@ -70,12 +70,17 @@ void MainWindow::updateUI(){
             if(zorkUL.getLastItem().compare("prisonKey")==0) {
                  ui->Items->addItem(QIcon("../ZorkGUIProject/images/prisonKey1.png"),"Prison Key");
                  zorkUL.changeRoomImage("../ZorkGUIProject/images/cCleared.png");
+                 displayCurrentRoomImage();
             }
             else if(zorkUL.getLastItem().compare("finalBossKey")==0) {
                 ui->Items->addItem(QIcon("../ZorkGUIProject/images/barKey.png"),"Bar Key");
+                zorkUL.changeRoomImage("../ZorkGUIProject/images/jCleared.png");
+                displayCurrentRoomImage();
             }
             else if(zorkUL.getLastItem().compare("drink")==0) {
                 ui->Items->addItem(QIcon("../ZorkGUIProject/images/whiskey.png"),"Drink");
+                zorkUL.changeRoomImage("../ZorkGUIProject/images/gCleared.png");
+                displayCurrentRoomImage();
                 QTimer::singleShot(1000 , this,SLOT(gameOverWin()));
             }
         }

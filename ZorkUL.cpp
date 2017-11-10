@@ -166,7 +166,8 @@ string ZorkUL::takeItem(){
         Item temp = currentRoom->getItem(location);
         currentRoom->removeItem(location);
         player->addItem(temp);
-        //delete temp;
+        Item* tempPtr = &temp;
+        delete tempPtr;
         result = player->longDescription();
 
         inDuel = duel();
@@ -347,4 +348,10 @@ string ZorkUL::go(string direction) {
 void ZorkUL::changeRoomImage(string path) {
     cout << "in zorkUL change room";
     currentRoom->changeImage(path);
+}
+
+ZorkUL::~ZorkUL() {
+    for (unsigned int i = 0; i < rooms.size(); i++) {
+        delete rooms[i];
+    }
 }

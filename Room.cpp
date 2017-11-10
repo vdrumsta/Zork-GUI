@@ -125,3 +125,8 @@ void Room::removeItem(int x){
     itemsInRoom.erase(itemsInRoom.begin()+x);
 }
 
+Room::~Room() {
+    delete roomImage;
+    delete roomQImage;
+    delete roomScene;
+}

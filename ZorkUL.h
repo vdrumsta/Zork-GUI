@@ -62,7 +62,7 @@ public:
     void setPlayerHealth(int x);
     int getPlayerHealth();
     void changeRoomImage(string);
-
+    ~ZorkUL();
 };
 
 #endif /*ZORKUL_H_*/
